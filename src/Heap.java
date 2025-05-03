@@ -37,6 +37,17 @@ public class Heap {
         heap.set(index2, temp);
     }
 
+    public void insert(int value){
+        heap.add(value);
+        int current = heap.size() - 1;
+
+        while (current>=0 &&
+                heap.get(current) > heap.get(getParent(current))){
+            swap(current,getParent(current));
+            current = getParent(current);
+        }
+    }
+
 
 
 }
