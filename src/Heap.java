@@ -48,49 +48,45 @@ public class Heap {
         }
     }
 
-    //by not using sink down
-    public Integer remove() {
-        if (heap.isEmpty()) return null;
-        if (heap.size() == 1) {
-            return heap.remove(0);
-        }
-        int removedValue = heap.get(0);
-        int lastValue = heap.remove(heap.size() - 1); // Remove last element
-        heap.set(0, lastValue); // Replace root with last element
-        int current = 0;
+    private void sinkDown(int index) {
+        int maxIndex = index;
         while (true) {
-            int left = leftChild(current);
-            int right = rightChild(current);
-            int largest = current;
+            int leftIndex = leftChild(index);
+            int rightIndex = rightChild(index);
 
-            if (left < heap.size() && heap.get(left) > heap.get(largest)) {
-                largest = left;
+            if (leftIndex < heap.size() && heap.get(leftIndex) > heap.get(maxIndex)) {
+                maxIndex = leftIndex;
             }
-            if (right < heap.size() && heap.get(right) > heap.get(largest)) {
-                largest = right;
+
+            if (rightIndex < heap.size() && heap.get(rightIndex) > heap.get(maxIndex)) {
+                maxIndex = rightIndex;
             }
-            if (largest != current) {
-                swap(current, largest);
-                current = largest;
+
+            if (maxIndex != index) {
+                swap(index, maxIndex);
+                index = maxIndex;
             } else {
-                break;
+                return;
             }
         }
-        return removedValue;
     }
 
+    // WRITE THE REMOVE METHOD HERE //
 
-//    // by using sink down
-//    private void sinkDown(int index){
-//        int maxIndex = index;
-//        while(true){
-//            int leftIndex = leftChild(index);
-//            int rightIndex = rightChild(index);
-//
-//            if (leftIndex < heap.size() && heap.g)
-//        }
-//
-//    }
+    public Integer remove (){
+
+        if(heap.size()==0) return null;
+        if(heap.size()==1){
+            return heap.remove(0);
+        }
+
+        int removedFirstElement = heap.get(0);
+        heap.set(0,heap.get(heap.size()-1));
+        heap.remove(heap.get(heap.size()-1));
+        sinkDown(0);
+
+        return removedFirstElement;
+    }
 
 
 
